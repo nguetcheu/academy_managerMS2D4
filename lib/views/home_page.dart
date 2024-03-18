@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
           title: const Text('Academy Manager'),
           backgroundColor: AppColor.primary,
         ),
-        body: Container(
+        body: SizedBox(
           width: Helper.getScreenWidth(context),
           height: Helper.getScreenHeight(context),
           child: Center(
