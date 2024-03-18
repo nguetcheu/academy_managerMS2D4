@@ -1,7 +1,6 @@
 import 'package:academy_manager/const/colors.dart';
+import 'package:academy_manager/views/splash_screen.dart';
 import 'package:flutter/material.dart';
-
-import 'views/home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,7 +20,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: AppColor.secondary)),
       debugShowCheckedModeBanner: false,
-      home: const HomePage(),
+      home: const SplashScreen(),
     );
   }
 }
