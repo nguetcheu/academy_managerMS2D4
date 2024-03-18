@@ -19,6 +19,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(backgroundColor: AppColor.secondary),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
           drawer: const NavBar(),
