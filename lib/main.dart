@@ -19,7 +19,8 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(backgroundColor: AppColor.secondary),
+      theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: AppColor.secondary)),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
           drawer: const NavBar(),
