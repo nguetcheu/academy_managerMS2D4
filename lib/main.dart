@@ -29,7 +29,7 @@ class _MyAppState extends State<MyApp> {
             height: Helper.getScreenHeight(context),
             child: Center(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Image.asset(
                     Helper.getAssetName("logo.png"),
@@ -37,7 +37,14 @@ class _MyAppState extends State<MyApp> {
                     width: Helper.getScreenWidth(context) / 2,
                   ),
                   const Center(
-                    child: Text("Bienvenue sur Academy Manager"),
+                    child: Text(
+                      "Bienvenue sur Academy Manager",
+                      style:
+                          TextStyle(fontSize: 25, fontStyle: FontStyle.italic),
+                    ),
+                  ),
+                  const Center(
+                    child: Text("La référence en gestion d'établissement"),
                   )
                 ],
               ),
