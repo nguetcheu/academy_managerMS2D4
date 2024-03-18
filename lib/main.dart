@@ -1,5 +1,6 @@
 import 'package:academy_manager/const/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:academy_manager/views/navbar.dart';
 
 import 'utils/helper.dart';
 
@@ -20,6 +21,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+          drawer: NavBar(),
           appBar: AppBar(
             title: const Text('Academy Manager'),
             backgroundColor: AppColor.primary,
