@@ -21,7 +21,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-          drawer: NavBar(),
+          drawer: const NavBar(),
           appBar: AppBar(
             title: const Text('Academy Manager'),
             backgroundColor: AppColor.primary,
