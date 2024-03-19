@@ -32,9 +32,11 @@ class NavBar extends StatelessWidget {
           ),
           ListTile(
               leading: const Icon(Icons.face_4_sharp),
-              title: const Text("Enseignants"),
-              onTap: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const Enseignant()))),
+              title: const Text("Liste des Enseignants"),
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const GetEnseignants()))),
           ListTile(
             leading: const Icon(Icons.settings),
             title: const Text("paramétres"),
