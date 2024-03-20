@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'package:academy_manager/Model/enseignant_model.dart';
+import 'package:academy_manager/const/colors.dart';
+import 'package:academy_manager/const/connexion.dart';
 import 'package:academy_manager/views/home_page.dart';
+import 'package:academy_manager/views/page.addenseignant.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -21,8 +24,7 @@ class _GetEnseignantsState extends State<GetEnseignants> {
   }
 
   Future<List<EnseignantModel>> _getEnseignants() async {
-    var data =
-        await http.get(Uri.parse('http://localhost:9000/enseignant/all'));
+    var data = await http.get(Uri.parse(Connection.LIST_ENSEIGNANT));
     var jsonData = json.decode(data.body);
 
     List<EnseignantModel> enseignants = [];
@@ -112,6 +114,17 @@ class _GetEnseignantsState extends State<GetEnseignants> {
           },
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddEnseignantForm()),
+          );
+        },
+        backgroundColor: AppColor.primary,
+        child: const Icon(Icons.add),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }
