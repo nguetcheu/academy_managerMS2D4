@@ -20,7 +20,13 @@ class _GetEnseignantsState extends State<GetEnseignants> {
   @override
   void initState() {
     super.initState();
-    _futureEnseignants = _getEnseignants();
+    _refreshEnseignants(); // Charge initiale des enseignants
+  }
+
+  Future<void> _refreshEnseignants() async {
+    setState(() {
+      _futureEnseignants = _getEnseignants();
+    });
   }
 
   Future<List<EnseignantModel>> _getEnseignants() async {
@@ -56,7 +62,8 @@ class _GetEnseignantsState extends State<GetEnseignants> {
           },
         ),
       ),
-      body: Container(
+      body: RefreshIndicator(
+        onRefresh: _refreshEnseignants,
         child: FutureBuilder<List<EnseignantModel>>(
           future: _futureEnseignants,
           builder: (BuildContext context,
@@ -120,6 +127,7 @@ class _GetEnseignantsState extends State<GetEnseignants> {
             context,
             MaterialPageRoute(builder: (context) => AddEnseignantForm()),
           );
+          _refreshEnseignants();
         },
         backgroundColor: AppColor.primary,
         child: const Icon(Icons.add),
