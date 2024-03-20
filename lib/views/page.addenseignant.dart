@@ -21,9 +21,9 @@ class _AddEnseignantFormState extends State<AddEnseignantForm> {
     final Map<String, dynamic> requestBody = {
       'nom': _nomController.text,
       'prenom': _prenomController.text,
-      'tel': _telController.text,
+      'phone': _telController.text,
       'email': _emailController.text,
-      'date_prise_service': _dateController.text,
+      'annee': _dateController.text,
     };
 
     final response = await http.post(
