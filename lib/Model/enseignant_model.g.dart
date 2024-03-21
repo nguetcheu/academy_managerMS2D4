@@ -12,6 +12,7 @@ EnseignantModel _$EnseignantFromJson(Map<String, dynamic> json) {
       phone: json['phone'] as int,
       email: json['email'] as String,
       password: json['password'] as String,
+      role: json['role'] as String,
       annee: json['annee'] as int);
 }
 
@@ -25,3 +26,5 @@ Map<String, dynamic> _$EnseignantToJson(EnseignantModel instance) =>
       'password': instance.password,
       'annee': instance.annee
     };
+
+

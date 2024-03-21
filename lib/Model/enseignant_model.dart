@@ -12,12 +12,14 @@ class EnseignantModel {
       this.phone,
       this.email,
       this.password,
+      this.role,
       this.annee});
   int? id;
   String? nom;
   String? prenom;
   int? phone;
   String? email;
+  String? role;
   String? password;
   int? annee;
 
