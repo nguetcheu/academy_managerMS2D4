@@ -1,5 +1,5 @@
 import 'package:academy_manager/const/colors.dart';
-import 'package:academy_manager/views/page.enseignant.dart';
+import 'package:academy_manager/views/page.admin_enseignant.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/helper.dart';

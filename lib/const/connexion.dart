@@ -6,8 +6,7 @@ class Connection {
 
   static const String LIST_ENSEIGNANT = "$APP_SERVER/enseignant/all";
 
-  static const String COUNT_ENSEIGNANT = "$APP_SERVER/enseignant/count";
-
+  static const String CONNEXION_ENSEIGNANT = "$APP_SERVER/enseignant/login";
 
   static const Map<String, String> headers = {
     "Access-Control-Allow-Origin": "*",

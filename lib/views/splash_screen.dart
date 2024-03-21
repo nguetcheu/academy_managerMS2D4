@@ -1,5 +1,5 @@
 import 'package:academy_manager/const/colors.dart';
-import 'package:academy_manager/views/home_page.dart';
+import 'package:academy_manager/views/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen>
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     Future.delayed(const Duration(seconds: 5), () {
       Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (_) => const HomePage()));
+          .pushReplacement(MaterialPageRoute(builder: (_) => const AuthPage()));
     });
   }
 
