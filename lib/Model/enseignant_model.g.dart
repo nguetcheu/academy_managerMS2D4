@@ -9,8 +9,9 @@ EnseignantModel _$EnseignantFromJson(Map<String, dynamic> json) {
       id: json['id'] as int,
       nom: json['nom'] as String,
       prenom: json['prenom'] as String,
-      tel: json['tel'] as int,
+      phone: json['phone'] as int,
       email: json['email'] as String,
+      password: json['password'] as String,
       annee: json['annee'] as int);
 }
 
@@ -19,7 +20,8 @@ Map<String, dynamic> _$EnseignantToJson(EnseignantModel instance) =>
       'id': instance.id,
       'nom': instance.nom,
       'prenom': instance.prenom,
-      'tel': instance.tel,
+      'phone': instance.phone,
       'email': instance.email,
+      'password': instance.password,
       'annee': instance.annee
     };

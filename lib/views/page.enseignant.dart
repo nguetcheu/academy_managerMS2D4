@@ -39,7 +39,7 @@ class _GetEnseignantsState extends State<GetEnseignants> {
       enseignant.id = e["id"];
       enseignant.nom = e["nom"];
       enseignant.prenom = e["prenom"];
-      enseignant.tel = e["tel"];
+      enseignant.phone = e["phone"];
       enseignant.email = e["email"];
       enseignant.annee = e["annee"];
       enseignants.add(enseignant);

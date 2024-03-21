@@ -13,7 +13,8 @@ class _AddEnseignantFormState extends State<AddEnseignantForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _nomController = TextEditingController();
   final TextEditingController _prenomController = TextEditingController();
-  final TextEditingController _telController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
 
@@ -21,7 +22,8 @@ class _AddEnseignantFormState extends State<AddEnseignantForm> {
     final Map<String, dynamic> requestBody = {
       'nom': _nomController.text,
       'prenom': _prenomController.text,
-      'phone': _telController.text,
+      'password': _prenomController.text,
+      'phone': _phoneController.text,
       'email': _emailController.text,
       'annee': _dateController.text,
     };
@@ -36,12 +38,13 @@ class _AddEnseignantFormState extends State<AddEnseignantForm> {
     if (response.statusCode == 200) {
       // Affiche un message de succès ou effectue une autre action
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Enseignant ajouté avec succès')),
+        const SnackBar(content: Text('Enseignant ajouté avec succès')),
       );
     } else {
       // Affiche un message d'erreur si l'ajout a échoué
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Erreur lors de l\'ajout de l\'enseignant')),
+        const SnackBar(
+            content: Text('Erreur lors de l\'ajout de l\'enseignant')),
       );
     }
   }
@@ -79,7 +82,7 @@ class _AddEnseignantFormState extends State<AddEnseignantForm> {
                 },
               ),
               TextFormField(
-                controller: _telController,
+                controller: _phoneController,
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(labelText: 'Téléphone'),
                 validator: (value) {
@@ -96,6 +99,17 @@ class _AddEnseignantFormState extends State<AddEnseignantForm> {
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Veuillez entrer l\'adresse email';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                controller: _passwordController,
+                keyboardType: TextInputType.visiblePassword,
+                decoration: const InputDecoration(labelText: 'Password'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Veuillez entrer le mot de passe';
                   }
                   return null;
                 },
@@ -133,7 +147,8 @@ class _AddEnseignantFormState extends State<AddEnseignantForm> {
     // Dispose les contrôleurs de texte
     _nomController.dispose();
     _prenomController.dispose();
-    _telController.dispose();
+    _passwordController.dispose();
+    _phoneController.dispose();
     _emailController.dispose();
     _dateController.dispose();
     super.dispose();

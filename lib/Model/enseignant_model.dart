@@ -6,12 +6,19 @@ part 'enseignant_model.g.dart';
 @JsonSerializable()
 class EnseignantModel {
   EnseignantModel(
-      {this.id, this.nom, this.prenom, this.tel, this.email, this.annee});
+      {this.id,
+      this.nom,
+      this.prenom,
+      this.phone,
+      this.email,
+      this.password,
+      this.annee});
   int? id;
   String? nom;
   String? prenom;
-  int? tel;
+  int? phone;
   String? email;
+  String? password;
   int? annee;
 
   factory EnseignantModel.fromJson(Map<String, dynamic> json) =>
