@@ -106,7 +106,7 @@ class _AddEnseignantFormState extends State<AddEnseignantForm> {
               TextFormField(
                 controller: _passwordController,
                 keyboardType: TextInputType.visiblePassword,
-                decoration: const InputDecoration(labelText: 'Password'),
+                decoration: const InputDecoration(labelText: 'Mot de passe'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Veuillez entrer le mot de passe';

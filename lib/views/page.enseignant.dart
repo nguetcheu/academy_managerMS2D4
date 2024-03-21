@@ -20,7 +20,7 @@ class _GetEnseignantsState extends State<GetEnseignants> {
   @override
   void initState() {
     super.initState();
-    _refreshEnseignants(); // Charge initiale des enseignants
+    _refreshEnseignants(); // Chargement initiale des enseignants
   }
 
   Future<void> _refreshEnseignants() async {
@@ -111,8 +111,11 @@ class _GetEnseignantsState extends State<GetEnseignants> {
                     ),
                     onTap: () {
                       // Implémente une action lorsque l'utilisateur appuie sur un enseignant
-                      print(
-                          "Détails de ${enseignant.nom} ${enseignant.prenom}");
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                            content: Text(
+                                '${enseignant.nom} son email est ${enseignant.email}')),
+                      );
                     },
                   );
                 },
