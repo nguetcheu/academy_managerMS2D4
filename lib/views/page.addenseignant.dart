@@ -50,7 +50,7 @@ class _AddEnseignantFormState extends State<AddEnseignantForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Ajouter d\'un enseignant'),
+        title: const Text('Ajout d\'un enseignant'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
