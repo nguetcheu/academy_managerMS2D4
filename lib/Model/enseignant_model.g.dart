@@ -26,5 +26,3 @@ Map<String, dynamic> _$EnseignantToJson(EnseignantModel instance) =>
       'password': instance.password,
       'annee': instance.annee
     };
-
-
