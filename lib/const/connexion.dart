@@ -8,14 +8,15 @@ class Connection {
 
   static const String CONNEXION_ENSEIGNANT = "$APP_SERVER/enseignant/login";
 
+  // URL DEPARTEMENT
+
+  static const String LIST_DEPARTEMENT = "$APP_SERVER/departement/all";
+
+  static const String GET_DEPARTEMENT = "$APP_SERVER/departement/id";
+
   static const Map<String, String> headers = {
     "Access-Control-Allow-Origin": "*",
     'Content-Type': 'application/json',
     'Accept': '*/*'
-  };
-
-  static const Map<String, String> springheaders = {
-    'Content-type': 'application/x-www-form-urlencoded',
-    'Accept': 'application/json',
   };
 }
