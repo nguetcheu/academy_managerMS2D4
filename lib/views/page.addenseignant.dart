@@ -26,7 +26,7 @@ class _AddEnseignantFormState extends State<AddEnseignantForm> {
   void initState() {
     super.initState();
     _selectedDepartment =
-        DepartementModel(id: -1, nom: ''); // Initialize with empty department
+        DepartementModel(id: -1, nom: ''); // Initialisation avec un departement vide
     _fetchDepartments();
   }
 
