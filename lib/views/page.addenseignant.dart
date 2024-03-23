@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:academy_manager/Model/departement_model.dart';
 import 'package:academy_manager/const/connexion.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -18,6 +19,31 @@ class _AddEnseignantFormState extends State<AddEnseignantForm> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
 
+  late List<DepartementModel> _departments;
+  late DepartementModel _selectedDepartment;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedDepartment =
+        DepartementModel(id: -1, nom: ''); // Initialize with empty department
+    _fetchDepartments();
+  }
+
+  Future<void> _fetchDepartments() async {
+    final response = await http.get(Uri.parse(Connection.LIST_DEPARTEMENT));
+    if (response.statusCode == 200) {
+      final jsonData = json.decode(response.body) as List<dynamic>;
+      setState(() {
+        _departments = jsonData.map((item) => DepartementModel(id: item['id'], nom: item['nom'])).toList();
+        _selectedDepartment = _departments.isNotEmpty ? _departments[0] : DepartementModel(id: -1, nom: '');
+      });
+    } else {
+      // Handle error
+      print('Impossible de récuperer un département');
+    }
+  }
+
   Future<void> _addEnseignant() async {
     final Map<String, dynamic> requestBody = {
       'nom': _nomController.text,
@@ -26,6 +52,7 @@ class _AddEnseignantFormState extends State<AddEnseignantForm> {
       'phone': _phoneController.text,
       'email': _emailController.text,
       'annee': _dateController.text,
+      'departmentId': _selectedDepartment.id,
     };
 
     final response = await http.post(
@@ -122,6 +149,31 @@ class _AddEnseignantFormState extends State<AddEnseignantForm> {
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Veuillez entrer la date de prise de service';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+              DropdownButtonFormField<DepartementModel>(
+                value: _selectedDepartment,
+                onChanged: (DepartementModel? value) {
+                  setState(() {
+                    _selectedDepartment = value!;
+                  });
+                },
+                items: _departments.map((DepartementModel departement) {
+                  return DropdownMenuItem<DepartementModel>(
+                    value: departement,
+                    child: Text(departement.nom),
+                  );
+                }).toList(),
+                decoration: const InputDecoration(
+                  labelText: 'Département',
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  if (value == null || value.id == -1) {
+                    return 'Veuillez sélectionner un département';
                   }
                   return null;
                 },

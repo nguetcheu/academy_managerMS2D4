@@ -5,9 +5,9 @@ part 'departement_model.g.dart';
 
 @JsonSerializable()
 class DepartementModel {
-  DepartementModel({this.id, this.nom});
+  DepartementModel({this.id, required this.nom});
   int? id;
-  String? nom;
+  String nom;
 
   factory DepartementModel.fromJson(Map<String, dynamic> json) =>
       _$DepartementFromJson(json);
