@@ -25,8 +25,8 @@ class _AddEnseignantFormState extends State<AddEnseignantForm> {
   @override
   void initState() {
     super.initState();
-    _selectedDepartment =
-        DepartementModel(id: -1, nom: ''); // Initialisation avec un departement vide
+    _selectedDepartment = DepartementModel(
+        id: -1, nom: ''); // Initialisation avec un departement vide
     _fetchDepartments();
   }
 
@@ -35,8 +35,12 @@ class _AddEnseignantFormState extends State<AddEnseignantForm> {
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body) as List<dynamic>;
       setState(() {
-        _departments = jsonData.map((item) => DepartementModel(id: item['id'], nom: item['nom'])).toList();
-        _selectedDepartment = _departments.isNotEmpty ? _departments[0] : DepartementModel(id: -1, nom: '');
+        _departments = jsonData
+            .map((item) => DepartementModel(id: item['id'], nom: item['nom']))
+            .toList();
+        _selectedDepartment = _departments.isNotEmpty
+            ? _departments[0]
+            : DepartementModel(id: -1, nom: '');
       });
     } else {
       // Handle error

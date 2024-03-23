@@ -20,8 +20,8 @@ class NavBar extends StatelessWidget {
             width: Helper.getScreenWidth(context) / 5,
           )*/
           UserAccountsDrawerHeader(
-            accountName: const Text("Kemogne jeanne "),
-            accountEmail: const Text("kemongne@gmail.com"),
+            accountName: const Text("Administrateur"),
+            accountEmail: const Text("admin@gmail.com"),
             currentAccountPicture: CircleAvatar(
               child: ClipOval(
                   child: Image.asset(Helper.getAssetName("profile.png"))),
