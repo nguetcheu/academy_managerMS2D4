@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../Model/enseignant_model.dart';
+import 'navbar.dart';
 
 class PageEnseignant extends StatelessWidget {
   final EnseignantModel enseignantModel;
@@ -10,12 +11,13 @@ class PageEnseignant extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const NavBar(),
       appBar: AppBar(
         title: const Text('Enseignant Dashboard'),
       ),
       body: Center(
         child: Text(
-            'Bienvenue, ${enseignantModel.email}! Vous etes un enseignant.'),
+            'Bienvenue, Monsieur ${enseignantModel.nom}, Vous etes un enseignant.'),
       ),
     );
   }
