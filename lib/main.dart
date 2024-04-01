@@ -1,8 +1,6 @@
 import 'package:academy_manager/theme/light_theme.dart';
-import 'package:academy_manager/views/page.addenseignant.dart';
 import 'package:academy_manager/views/splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 void main() {
