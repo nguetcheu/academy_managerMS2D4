@@ -44,7 +44,7 @@ class _SplashScreenState extends State<SplashScreen>
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image(
-              image: AssetImage("assets/images/logo.png"),
+              image: AssetImage("assets/images/logo_wbg.png"),
               fit: BoxFit.contain,
               height: 180.0,
               width: 180.0,

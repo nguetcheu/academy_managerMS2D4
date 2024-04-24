@@ -19,4 +19,20 @@ class Connection {
     'Content-Type': 'application/json',
     'Accept': '*/*'
   };
+
+  //URL EMPLOIS DE TEMPS
+
+  static String listEmploisDetempEnseignantUrl(int idEnseignant) {
+    return "$APP_SERVER/emploi-de-temps/enseignant/$idEnseignant/all";
+  }
+
+  static String getEmploisDetempEnseignantParSemaineUrl(
+      int idEnseignant, int numeroSemaine) {
+    return "$APP_SERVER/emploi-de-temps/enseignant/$idEnseignant/$numeroSemaine";
+  }
+
+  static String listEmploisDetempEnseignantSemaineActuelleUrl(
+      int idEnseignant) {
+    return "$APP_SERVER/emploi-de-temps/enseignant/$idEnseignant";
+  }
 }

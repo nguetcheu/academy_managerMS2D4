@@ -1,5 +1,7 @@
+import 'package:academy_manager/Model/enseignant_model.dart';
 import 'package:academy_manager/theme/light_theme.dart';
 import 'package:academy_manager/views/page.addenseignant.dart';
+import 'package:academy_manager/views/page.enseignant.dart';
 import 'package:academy_manager/views/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -24,6 +26,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       home: const SplashScreen(),
       // home: AddEnseignantForm(),
+      // home: PageEnseignant(enseignantModel: EnseignantModel(id: 62))
     );
   }
 }

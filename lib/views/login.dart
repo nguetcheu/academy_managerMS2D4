@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:academy_manager/Model/enseignant_model.dart';
 import 'package:academy_manager/const/connexion.dart';
 import 'package:academy_manager/views/home_page.dart';
+import 'package:academy_manager/components/CostumAppBar.dart';
 import 'package:academy_manager/views/page.enseignant.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -28,7 +29,6 @@ class _AuthPageState extends State<AuthPage> {
 
     final response = await http.post(Uri.parse(Connection.CONNEXION_ENSEIGNANT),
         headers: Connection.headers, body: jsonEncode(requestBody));
-
     if (response.statusCode == 200) {
       final responseData = json.decode(response.body);
       final enseignantData = EnseignantModel.fromJson(responseData);
@@ -65,8 +65,8 @@ class _AuthPageState extends State<AuthPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Connexion'),
+      appBar: CustomAppBar(
+        title: "Connexion",
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

@@ -3,6 +3,7 @@ import 'package:academy_manager/Model/enseignant_model.dart';
 import 'package:academy_manager/const/colors.dart';
 import 'package:academy_manager/const/connexion.dart';
 import 'package:academy_manager/views/home_page.dart';
+import 'package:academy_manager/components/CostumAppBar.dart';
 import 'package:academy_manager/views/page.addenseignant.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -50,8 +51,8 @@ class _GetEnseignantsState extends State<GetEnseignants> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Liste des enseignants"),
+      appBar: CustomAppBar(
+        title: "Emploi de temps",
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {

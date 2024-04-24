@@ -1,30 +1,44 @@
 import 'package:academy_manager/Model/emploiDeTempsJour_model.dart';
 
 class EmploiDeTempsModel {
-  DateTime? dateDebutSemaine;
-  DateTime? dateFinSemaine;
-  List<EmploiDeTempsJourModel>? emploisDeTempsJour;
+  EmploiDeTempsJourModel? lundi;
+  EmploiDeTempsJourModel? mardi;
+  EmploiDeTempsJourModel? mercredi;
+  EmploiDeTempsJourModel? jeudi;
+  EmploiDeTempsJourModel? vendredi;
+  EmploiDeTempsJourModel? samedi;
+  EmploiDeTempsJourModel? dimanche;
 
-  EmploiDeTempsModel({
-    this.dateDebutSemaine,
-    this.dateFinSemaine,
-    this.emploisDeTempsJour,
-  });
-  factory EmploiDeTempsModel.fromJson(Map<String, dynamic> json) {
-    List<EmploiDeTempsJourModel> emploisDeTempsJour = [];
-    try {
-      for (int i = 0; i < json["emploisDeTempsJour"].length; i++) {
-        emploisDeTempsJour.add(
-            EmploiDeTempsJourModel.fromJson(json["emploisDeTempsJour"][i]));
-      }
-      EmploiDeTempsModel emploiDeTempsModel = EmploiDeTempsModel(
-        dateDebutSemaine: json["dateDebutSemaine"] as DateTime?,
-        dateFinSemaine: json["dateFinSemaine"] as DateTime?,
-        emploisDeTempsJour: emploisDeTempsJour,
-      );
-      return emploiDeTempsModel;
-    } catch (e) {
-      throw const FormatException("Impossible de charger l'emploi de temps");
-    }
+  EmploiDeTempsModel(
+      {this.lundi,
+      this.mardi,
+      this.mercredi,
+      this.jeudi,
+      this.vendredi,
+      this.samedi,
+      this.dimanche});
+
+  factory EmploiDeTempsModel.fromJson(Map<String, dynamic>? json) {
+    return switch (json) {
+      {
+        "lundi": Map<String, dynamic>? lundi,
+        "mardi": Map<String, dynamic>? mardi,
+        "mercredi": Map<String, dynamic>? mercredi,
+        "jeudi": Map<String, dynamic>? jeudi,
+        "vendredi": Map<String, dynamic>? vendredi,
+        "samedi": Map<String, dynamic>? samedi,
+        "dimanche": Map<String, dynamic>? dimanche,
+      } =>
+        EmploiDeTempsModel(
+            lundi: EmploiDeTempsJourModel.fromJson(lundi),
+            mardi: EmploiDeTempsJourModel.fromJson(mardi),
+            mercredi: EmploiDeTempsJourModel.fromJson(mercredi),
+            jeudi: EmploiDeTempsJourModel.fromJson(jeudi),
+            vendredi: EmploiDeTempsJourModel.fromJson(vendredi),
+            samedi: EmploiDeTempsJourModel.fromJson(samedi),
+            dimanche: EmploiDeTempsJourModel.fromJson(dimanche)),
+      _ => throw const FormatException(
+          "Impossible de charger l'emploi de temps de semaine"),
+    };
   }
 }

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:academy_manager/Model/departement_model.dart';
 import 'package:academy_manager/const/connexion.dart';
+import 'package:academy_manager/components/CostumAppBar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -83,8 +84,8 @@ class _AddEnseignantFormState extends State<AddEnseignantForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Ajout d\'un enseignant'),
+      appBar: CustomAppBar(
+        title: "Ajout d'un enseignant",
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
