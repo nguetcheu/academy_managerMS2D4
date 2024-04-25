@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:academy_manager/Model/enseignant_model.dart';
 import 'package:academy_manager/const/colors.dart';
 import 'package:academy_manager/const/connexion.dart';
+import 'package:academy_manager/views/EditEnseignantPage%20.dart';
 import 'package:academy_manager/views/home_page.dart';
 import 'package:academy_manager/views/page.addenseignant.dart';
 import 'package:flutter/material.dart';
@@ -117,11 +118,24 @@ class _GetEnseignantsState extends State<GetEnseignants> {
                                 '${enseignant.nom} son email est ${enseignant.email}')),
                       );
                     },
-                    trailing: IconButton(
-                      icon: const Icon(Icons.delete),
-                      onPressed: () {
-                        _supprimerEnseignant(enseignant.id); // Appel de la fonction de suppression
-                      },
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.edit),
+                          onPressed: () {
+                            _editerEnseignant(
+                                enseignant); // Appel de la fonction d'édition
+                          },
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.delete),
+                          onPressed: () {
+                            _supprimerEnseignant(enseignant
+                                .id); // Appel de la fonction de suppression
+                          },
+                        ),
+                      ],
                     ),
                   );
                 },
@@ -146,19 +160,36 @@ class _GetEnseignantsState extends State<GetEnseignants> {
   }
 
   Future<void> _supprimerEnseignant(int? idEnseignant) async {
-  // Suppression de l'enseignant avec l'ID spécifié
-  var response = await http.delete(Uri.parse('${Connection.APP_SERVER}/enseignant/delete/$idEnseignant'));
-  if (response.statusCode == 200) {
-    // Si la suppression réussit, rafraîchis la liste des enseignants pour refléter les changements
+    // Suppression de l'enseignant avec l'ID spécifié
+    var response = await http.delete(
+        Uri.parse('${Connection.APP_SERVER}/enseignant/delete/$idEnseignant'));
+    if (response.statusCode == 200) {
+      // Si la suppression réussit, rafraîchis la liste des enseignants pour refléter les changements
+      _refreshEnseignants();
+    } else {
+      // Gestion des cas où la suppression échoue
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Échec de la suppression de l\'enseignant'),
+        ),
+      );
+    }
+  }
+
+  Future<void> _editerEnseignant(EnseignantModel enseignant) async {
+  // Navigation vers la page de modification des informations de l'enseignant
+  final result = await Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => EditEnseignantPage(enseignant: enseignant)),
+  );
+
+  // Vérification si l'utilisateur a confirmé la mise à jour des informations
+  if (result == true) {
+    // Si la mise à jour est confirmée, rafraîchis la liste des enseignants pour refléter les changements
     _refreshEnseignants();
-  } else {
-    // Gestion des cas où la suppression échoue
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Échec de la suppression de l\'enseignant'),
-      ),
-    );
   }
 }
 
+
+  
 }

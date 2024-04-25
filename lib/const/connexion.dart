@@ -6,6 +6,8 @@ class Connection {
 
   static const String LIST_ENSEIGNANT = "$APP_SERVER/enseignant/all";
 
+  static const String UPDATE_ENSEIGNANT = "$APP_SERVER/enseignant/";
+
   static const String CONNEXION_ENSEIGNANT = "$APP_SERVER/enseignant/login";
 
   // URL DEPARTEMENT
