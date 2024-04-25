@@ -1,10 +1,12 @@
 import 'package:academy_manager/const/colors.dart';
+import 'package:academy_manager/views/login.dart';
 import 'package:academy_manager/views/navbar.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/helper.dart';
 
 class HomePage extends StatelessWidget {
+
   const HomePage({
     super.key,
   });
@@ -16,6 +18,17 @@ class HomePage extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Academy Manager'),
           backgroundColor: AppColor.primary,
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.logout),
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const AuthPage()),
+                );
+              },
+            ),
+          ],
         ),
         body: SizedBox(
           width: Helper.getScreenWidth(context),
