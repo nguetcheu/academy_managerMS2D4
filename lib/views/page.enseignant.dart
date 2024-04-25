@@ -1,6 +1,7 @@
 import 'package:academy_manager/Model/EmploiDeTemps_model.dart';
 import 'package:academy_manager/components/Calendar.dart';
 import 'package:academy_manager/services/emploie_de_temps.service.dart';
+import 'package:academy_manager/views/login.dart';
 import 'package:flutter/material.dart';
 
 import '../Model/enseignant_model.dart';
@@ -30,6 +31,17 @@ class _PageEnseignantState extends State<PageEnseignant> {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Enseignant Dashboard'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.logout),
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const AuthPage()),
+                );
+              },
+            ),
+          ],
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(
