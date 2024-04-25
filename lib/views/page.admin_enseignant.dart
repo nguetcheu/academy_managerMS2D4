@@ -117,6 +117,12 @@ class _GetEnseignantsState extends State<GetEnseignants> {
                                 '${enseignant.nom} son email est ${enseignant.email}')),
                       );
                     },
+                    trailing: IconButton(
+                      icon: const Icon(Icons.delete),
+                      onPressed: () {
+                        _supprimerEnseignant(enseignant.id); // Appel de la fonction de suppression
+                      },
+                    ),
                   );
                 },
               );
@@ -138,4 +144,21 @@ class _GetEnseignantsState extends State<GetEnseignants> {
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
+
+  Future<void> _supprimerEnseignant(int? idEnseignant) async {
+  // Suppression de l'enseignant avec l'ID spécifié
+  var response = await http.delete(Uri.parse('${Connection.APP_SERVER}/enseignant/delete/$idEnseignant'));
+  if (response.statusCode == 200) {
+    // Si la suppression réussit, rafraîchis la liste des enseignants pour refléter les changements
+    _refreshEnseignants();
+  } else {
+    // Gestion des cas où la suppression échoue
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Échec de la suppression de l\'enseignant'),
+      ),
+    );
+  }
+}
+
 }
