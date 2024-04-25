@@ -5,7 +5,6 @@ import 'package:academy_manager/views/login.dart';
 import 'package:flutter/material.dart';
 
 import '../Model/enseignant_model.dart';
-import 'navbar.dart';
 
 class PageEnseignant extends StatefulWidget {
   final EnseignantModel enseignantModel;

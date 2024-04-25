@@ -1,11 +1,9 @@
 import "package:academy_manager/Model/EmploiDeTemps_model.dart";
-import "package:academy_manager/Model/emploiDeTempsJour_model.dart";
 import "package:academy_manager/services/emploie_de_temps.service.dart";
 import "package:flutter/material.dart";
-import "package:flutter/widgets.dart";
-import "package:intl/date_symbol_data_local.dart";
 import "package:intl/intl.dart";
 
+// ignore: must_be_immutable
 class Calendar extends StatefulWidget {
   late EmploiDeTempsModel emploiDeTemps;
   Calendar({super.key, required this.emploiDeTemps});
