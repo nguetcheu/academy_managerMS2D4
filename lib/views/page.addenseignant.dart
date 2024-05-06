@@ -27,6 +27,7 @@ class _AddEnseignantFormState extends State<AddEnseignantForm> {
     super.initState();
     _selectedDepartment = DepartementModel(
         id: -1, nom: ''); // Initialisation avec un departement vide
+    _departments = []; // Initialisation de la liste de départements
     _fetchDepartments();
   }
 
@@ -48,11 +49,16 @@ class _AddEnseignantFormState extends State<AddEnseignantForm> {
     }
   }
 
-  Future<void> _addEnseignant() async {
+  Future<void> _addEnseignant(BuildContext context) async {
+    if (_departments.isEmpty) {
+      print('Liste de départements non initialisée');
+      return;
+    }
+
     final Map<String, dynamic> requestBody = {
       'nom': _nomController.text,
       'prenom': _prenomController.text,
-      'password': _prenomController.text,
+      'password': _passwordController.text,
       'phone': _phoneController.text,
       'email': _emailController.text,
       'annee': _dateController.text,
@@ -186,7 +192,7 @@ class _AddEnseignantFormState extends State<AddEnseignantForm> {
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    _addEnseignant();
+                    _addEnseignant(context);
                   }
                 },
                 child: const Text('Enregistrer'),
