@@ -13,6 +13,7 @@ class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _AuthPageState createState() => _AuthPageState();
 }
 
@@ -33,8 +34,6 @@ class _AuthPageState extends State<AuthPage> {
       final responseData = json.decode(response.body);
       final enseignantData = EnseignantModel.fromJson(responseData);
 
-      print('Response status: ${response.statusCode}');
-      print('Response body: ${response.body}');
       if (enseignantData.role == 'admin') {
         // L'utilisateur est un administrateur, naviguer vers le widget HomePage
         Navigator.pushReplacement(
@@ -51,8 +50,6 @@ class _AuthPageState extends State<AuthPage> {
         );
       }
     } else {
-      // Erreur lors de la connexion
-      print('Connexion échoue');
       // Affichage d'un message d'erreur à l'utilisateur
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
