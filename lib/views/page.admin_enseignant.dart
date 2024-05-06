@@ -131,7 +131,7 @@ class _GetEnseignantsState extends State<GetEnseignants> {
                         IconButton(
                           icon: const Icon(Icons.delete),
                           onPressed: () {
-                            _supprimerEnseignant(enseignant
+                            _supprimerEnseignant(context, enseignant
                                 .id); // Appel de la fonction de suppression
                           },
                         ),
@@ -159,7 +159,7 @@ class _GetEnseignantsState extends State<GetEnseignants> {
     );
   }
 
-  Future<void> _supprimerEnseignant(int? idEnseignant) async {
+  Future<void> _supprimerEnseignant(BuildContext context, int? idEnseignant) async {
     // Suppression de l'enseignant avec l'ID spécifié
     var response = await http.delete(
         Uri.parse('${Connection.APP_SERVER}/enseignant/delete/$idEnseignant'));
