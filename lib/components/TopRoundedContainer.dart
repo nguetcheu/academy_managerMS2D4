@@ -5,15 +5,14 @@ class TopRoundedContainer extends StatelessWidget {
   const TopRoundedContainer({super.key, required this.child});
   @override
   Widget build(BuildContext context) {
-    //TODO
     return Container(
-      child: child,
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(
           topLeft: Radius.elliptical(50, 50),
         ),
         color: Colors.amber,
       ),
+      child: child,
     );
   }
 }
