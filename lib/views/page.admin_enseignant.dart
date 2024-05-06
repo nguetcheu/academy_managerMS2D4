@@ -17,11 +17,13 @@ class GetEnseignants extends StatefulWidget {
 
 class _GetEnseignantsState extends State<GetEnseignants> {
   late Future<List<EnseignantModel>> _futureEnseignants;
+  late TextEditingController _searchController;
 
   @override
   void initState() {
     super.initState();
-    _refreshEnseignants(); // Chargement initiale des enseignants
+    _searchController = TextEditingController();
+    _refreshEnseignants(); // Chargement initial des enseignants
   }
 
   Future<void> _refreshEnseignants() async {
@@ -45,6 +47,16 @@ class _GetEnseignantsState extends State<GetEnseignants> {
       enseignant.annee = e["annee"];
       enseignants.add(enseignant);
     }
+
+    // Filtrer les enseignants en fonction du texte saisi dans le champ de recherche
+    String searchTerm = _searchController.text.toLowerCase();
+    if (searchTerm.isNotEmpty) {
+      enseignants = enseignants.where((enseignant) {
+        return (enseignant.nom ?? '').toLowerCase().contains(searchTerm) ||
+            (enseignant.prenom ?? '').toLowerCase().contains(searchTerm);
+      }).toList();
+    }
+
     return enseignants;
   }
 
@@ -63,94 +75,113 @@ class _GetEnseignantsState extends State<GetEnseignants> {
           },
         ),
       ),
-      body: RefreshIndicator(
-        onRefresh: _refreshEnseignants,
-        child: FutureBuilder<List<EnseignantModel>>(
-          future: _futureEnseignants,
-          builder: (BuildContext context,
-              AsyncSnapshot<List<EnseignantModel>> snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
-            } else if (snapshot.data == null) {
-              return const Center(child: Text('Aucune donées disponible'));
-            } else {
-              return ListView.builder(
-                itemCount: snapshot.data!.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final enseignant = snapshot.data![index];
-                  return ListTile(
-                    leading: const CircleAvatar(
-                      // Utilise une icône ou une image représentative si possible
-                      child: Icon(Icons.person),
-                    ),
-                    title: Text(
-                      '${enseignant.nom} ${enseignant.prenom}',
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Ajoute d'autres informations si nécessaire, comme l'adresse e-mail ou le numéro de téléphone
-                        Text(
-                          'Email: ${enseignant.email}',
-                          style: const TextStyle(
-                            fontSize: 12,
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: _searchController,
+              decoration: const InputDecoration(
+                labelText: 'Recherche par nom',
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(),
+              ),
+              onChanged: (_) {
+                _refreshEnseignants(); // Actualise la liste des enseignants lors de la saisie dans le champ de recherche
+              },
+            ),
+          ),
+          Expanded(
+            child: RefreshIndicator(
+              onRefresh: _refreshEnseignants,
+              child: FutureBuilder<List<EnseignantModel>>(
+                future: _futureEnseignants,
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<EnseignantModel>> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text('Error: ${snapshot.error}'));
+                  } else if (snapshot.data == null || snapshot.data!.isEmpty) {
+                    return const Center(
+                        child: Text('Aucune donnée disponible'));
+                  } else {
+                    return ListView.builder(
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final enseignant = snapshot.data![index];
+                        return ListTile(
+                          leading: const CircleAvatar(
+                            child: Icon(Icons.person),
                           ),
-                        ),
-                        Text(
-                          'Année de début: ${enseignant.annee}',
-                          style: const TextStyle(
-                            fontSize: 12,
+                          title: Text(
+                            '${enseignant.nom} ${enseignant.prenom}',
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    onTap: () {
-                      // Implémente une action lorsque l'utilisateur appuie sur un enseignant
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                            content: Text(
-                                '${enseignant.nom} son email est ${enseignant.email}')),
-                      );
-                    },
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.edit),
-                          onPressed: () {
-                            _editerEnseignant(
-                                enseignant); // Appel de la fonction d'édition
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Email: ${enseignant.email}',
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                ),
+                              ),
+                              Text(
+                                'Année de début: ${enseignant.annee}',
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
+                          ),
+                          onTap: () {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  '${enseignant.nom} son email est ${enseignant.email}',
+                                ),
+                              ),
+                            );
                           },
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.delete),
-                          onPressed: () {
-                            _supprimerEnseignant(context, enseignant
-                                .id); // Appel de la fonction de suppression
-                          },
-                        ),
-                      ],
-                    ),
-                  );
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                icon: const Icon(Icons.edit),
+                                onPressed: () {
+                                  _editerEnseignant(enseignant);
+                                },
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.delete),
+                                onPressed: () {
+                                  _supprimerEnseignant(context, enseignant.id);
+                                },
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  }
                 },
-              );
-            }
-          },
-        ),
+              ),
+            ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => AddEnseignantForm()),
-          );
-          _refreshEnseignants();
+          ).then((_) {
+            _refreshEnseignants();
+          });
         },
         backgroundColor: AppColor.primary,
         child: const Icon(Icons.add),
@@ -159,15 +190,13 @@ class _GetEnseignantsState extends State<GetEnseignants> {
     );
   }
 
-  Future<void> _supprimerEnseignant(BuildContext context, int? idEnseignant) async {
-    // Suppression de l'enseignant avec l'ID spécifié
+  Future<void> _supprimerEnseignant(
+      BuildContext context, int? idEnseignant) async {
     var response = await http.delete(
         Uri.parse('${Connection.APP_SERVER}/enseignant/delete/$idEnseignant'));
     if (response.statusCode == 200) {
-      // Si la suppression réussit, rafraîchis la liste des enseignants pour refléter les changements
       _refreshEnseignants();
     } else {
-      // Gestion des cas où la suppression échoue
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Échec de la suppression de l\'enseignant'),
@@ -177,19 +206,14 @@ class _GetEnseignantsState extends State<GetEnseignants> {
   }
 
   Future<void> _editerEnseignant(EnseignantModel enseignant) async {
-  // Navigation vers la page de modification des informations de l'enseignant
-  final result = await Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => EditEnseignantPage(enseignant: enseignant)),
-  );
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => EditEnseignantPage(enseignant: enseignant)),
+    );
 
-  // Vérification si l'utilisateur a confirmé la mise à jour des informations
-  if (result == true) {
-    // Si la mise à jour est confirmée, rafraîchis la liste des enseignants pour refléter les changements
-    _refreshEnseignants();
+    if (result == true) {
+      _refreshEnseignants();
+    }
   }
-}
-
-
-  
 }
